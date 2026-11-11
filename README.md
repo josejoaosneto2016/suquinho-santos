@@ -28,3 +28,7 @@ Projeto inicial do site de encomendas e futuro painel familiar do Suquinhos Sant
 ## Próximas etapas
 
 Veja `docs/planejamento.md` e `docs/trello.md`. Antes de lançar pedidos reais, decidir canal de confirmação, política de entrega/pagamento, armazenamento de dados e acesso ao painel.
+
+## Guia de retomada
+
+Leia [docs/CONTEXTO_E_ROADMAP.md](docs/CONTEXTO_E_ROADMAP.md) para o contexto completo, estado atual e roadmap até a publicação.
