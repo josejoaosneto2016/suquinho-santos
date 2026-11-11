@@ -4,6 +4,11 @@
   "private": true,
   "description": "Site de encomendas do Suquinhos Santos",
   "scripts": {
-    "dev": "node scripts/dev-server.js"
+    "dev": "node scripts/dev-server.js",
+    "test": "node --test test/*.test.js",
+    "build": "node scripts/build.js"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }

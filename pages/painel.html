@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1f6b3b"><meta name="robots" content="noindex">
+  <link rel="manifest" href="../manifest.webmanifest"><link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="../css/style.css"><link rel="stylesheet" href="../css/panel.css">
+  <title>Painel da família | Suquinhos Santos</title><script src="../js/panel.js" defer></script>
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="../index.html"><img src="../assets/images/logo.png" alt=""><span>Suquinhos Santos</span></a><a href="../index.html">Ver cardápio</a></header>
+  <main class="panel-main">
+    <section id="login-section" class="login-card" aria-labelledby="login-title">
+      <p class="eyebrow">Área da família</p><h1 id="login-title">Vamos cuidar dos suquinhos?</h1>
+      <p>Entre para acompanhar as encomendas e o caixa.</p>
+      <p id="connection-status" role="status">Conferindo a conexão…</p>
+      <form id="login-form">
+        <label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="username" maxlength="254" required>
+        <label for="password">Senha</label><input id="password" name="password" type="password" autocomplete="current-password" maxlength="256" required>
+        <button class="button" id="login-button" type="submit" disabled>Entrar</button>
+      </form>
+      <p class="muted">Acesso somente para familiares autorizados. Para recuperar o acesso, fale com o responsável pelo aplicativo.</p>
+      <noscript><p>Ative o JavaScript para entrar no painel.</p></noscript>
+    </section>
+
+    <section id="dashboard" hidden aria-labelledby="panel-title">
+      <div class="panel-heading"><div><p class="eyebrow">Seu negócio, com carinho</p><h1 id="panel-title">Painel da família</h1><p id="greeting"></p></div><button class="button" id="logout-button" type="button">Sair</button></div>
+      <p id="panel-status" role="status"></p>
+      <p class="panel-notice">Encomendas por Pix. Confira o crédito na conta antes de confirmar o pagamento. Enviar comprovante não confirma automaticamente a venda.</p>
+      <div class="panel-heading"><h2 id="cycle-title">Próxima entrega</h2><button class="button button-secondary" id="refresh-button" type="button">Atualizar</button></div>
+            <section class="panel-card"><h2>Rodadas de encomendas</h2><label for="cycle-select">Consultar rodada</label><select id="cycle-select"></select><div id="cycle-actions"></div><details><summary>Criar outra rodada</summary><form id="cycle-form"><label for="delivery-date">Segunda-feira da entrega</label><input id="delivery-date" name="delivery_date" type="date" required><p>O fechamento será na sexta anterior, às 18h. A rodada é criada como rascunho; você escolhe quando abrir os pedidos.</p><button id="create-cycle" class="button" type="submit">Criar rodada</button></form></details></section>
+      <div id="metrics" class="metrics"></div>
+      <nav class="panel-nav" aria-label="Seções do painel"><a href="#orders-section">Pedidos</a><a href="#production-section">Produção</a><a href="#cash-section">Caixa</a></nav>
+      <section class="panel-card" id="orders-section"><h2>Pedidos da rodada</h2><div id="orders-list"></div></section>
+      <section class="panel-card" id="production-section"><h2>Para produzir</h2><p>Pedidos pagos e confirmados ou em produção. Entregues e cancelados ficam fora desta lista.</p><ul id="production-list"></ul></section>
+      <section class="panel-card" id="cash-section"><h2>Movimentos da rodada</h2><p>Entradas e saídas vinculadas a esta entrega. O movimento líquido não inclui saldo inicial nem movimentos sem rodada; não representa lucro.</p><div id="cash-list"></div></section>
+    </section>
+  </main>
+</body>
+</html>

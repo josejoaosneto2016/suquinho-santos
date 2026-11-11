@@ -11,7 +11,7 @@
 
 ## Protótipo atual
 
-A página inicial apresenta o cardápio e uma cesta volátil, mantida apenas enquanto a página está aberta. Ainda não recebe pedidos, pagamentos, endereço ou contato. A página administrativa descreve o escopo e não armazena dados.
+A página inicial apresenta o cardápio e um carrinho com ajuste de quantidades e salvamento local de sabores e quantidades, quando permitido pelo navegador. Ainda não recebe pedidos, pagamentos, endereço ou contato. A página administrativa descreve o escopo e não armazena dados.
 
 ## Decisões para conversar antes de integrar serviços
 
@@ -22,3 +22,12 @@ A página inicial apresenta o cardápio e uma cesta volátil, mantida apenas enq
 - Quais familiares podem ver pedidos, clientes e finanças?
 - Onde armazenar dados, por quanto tempo e como executar backups seguros?
 - Preço fixo ou variação conforme embalagem/tamanho? O tamanho da garrafa ainda não foi informado.
+
+## Decisões de 11/11/2026
+
+- App instalável pelo link (PWA), focado em Android e iPhone.
+- Fechamento: sexta-feira às 18h (America/Sao_Paulo). Entrega: segunda-feira.
+- Cliente sem conta, com nome e telefone; pagamento registrado manualmente.
+- Filho desenvolve o front principal; pai e filho desenvolvem painel e backend.
+- Supabase e Vercel são a arquitetura proposta; domínio próprio é opcional.
+- Ver PLANO_DO_APP.md para etapas e CONTRATO_API.md para a integração. Questões antigas sobre canal e prazo ficam substituídas por estas decisões.

@@ -30,9 +30,9 @@ Não alterar preço, sabores, agenda, política de entrega ou forma de pagamento
 
 ## 3. Estado atual — protótipo
 
-A base é HTML, CSS e JavaScript sem dependências externas. A página inicial mostra o cardápio e tem um carrinho demonstrativo em memória. O servidor local serve os arquivos, mas não compila nem atualiza automaticamente a página: após editar, atualize o navegador.
+A base é HTML, CSS e JavaScript sem dependências externas. A página inicial mostra o cardápio e tem um carrinho demonstrativo com ajuste de quantidades e salvamento local. O servidor local serve os arquivos, mas não compila nem atualiza automaticamente a página: após editar, atualize o navegador.
 
-**Ainda não está pronto para receber pedidos reais.** O carrinho desaparece ao recarregar. Não há envio de encomenda, confirmação ao cliente, pagamento, banco de dados, autenticação, controle de acesso, persistência, relatórios funcionais, exportação ou backup. `pages/admin.html` é apenas um esboço descritivo, sem proteção. Não inserir dados reais de clientes, senhas, chaves ou informações financeiras no protótipo nem no repositório.
+**Ainda não está pronto para receber pedidos reais.** O carrinho agora tenta recuperar sabores e quantidades ao recarregar; se o navegador bloquear o armazenamento, funciona apenas durante a sessão da página. Não há envio de encomenda, confirmação ao cliente, pagamento, banco de dados, autenticação, controle de acesso, persistência de pedidos no servidor, relatórios funcionais, exportação ou backup. `pages/admin.html` é apenas um esboço descritivo, sem proteção. Não inserir dados reais de clientes, senhas, chaves ou informações financeiras no protótipo nem no repositório.
 
 A branch `main` já contém o commit inicial no GitHub. Como o repositório é público, tudo que for enviado ao GitHub pode ser visto por qualquer pessoa. O convite de `jjsjunior3` precisa ser confirmado na página de colaboradores do GitHub.
 
@@ -42,7 +42,7 @@ A branch `main` já contém o commit inicial no GitHub. Como o repositório é p
 index.html                  Página inicial e cardápio
 pages/admin.html            Rascunho do escopo administrativo
 css/style.css               Identidade visual e layout responsivo
-js/app.js                   Carrinho temporário de demonstração
+js/app.js                   Carrinho com salvamento local e ajuste de quantidades
 assets/images/logo.png      Logo oficial
 scripts/dev-server.js        Servidor HTTP local simples
 README.md                    Visão geral e instruções
@@ -144,3 +144,7 @@ Pare o servidor com `Ctrl+C`. O servidor escuta apenas em `127.0.0.1`; ele é pa
 ## 7. Próxima ação recomendada
 
 Começar pela Fase 0: conversar sobre garrafa, entregas, prazo, pagamento e contato comercial. Depois concluir a Fase 1 e publicar primeiro um site informativo. O formulário de encomenda e o painel com dados reais vêm depois de escolher e proteger o armazenamento.
+
+## Atualização de 11/11/2026 — plano vigente
+
+As decisões e etapas mais recentes estão em [PLANO_DO_APP.md](PLANO_DO_APP.md). Esse plano substitui a sequência antiga onde houver divergência. O cliente fará encomendas pelo app, sem conta, para entrega segunda, com fechamento sexta às 18h. Pagamento manual. Filho cuida do front público; pai e filho, do painel/backend. A base PWA está adicionada. Banco, Auth e API ainda não foram implementados. Não houve publicação ou provisionamento em nuvem.

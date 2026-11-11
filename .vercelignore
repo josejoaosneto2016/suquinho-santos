@@ -1,0 +1,9 @@
+.git
+.env*
+.vercel
+node_modules
+dist
+test
+docs
+supabase
+scripts/cleanup-browser-test.js
