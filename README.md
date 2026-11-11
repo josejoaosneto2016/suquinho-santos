@@ -104,9 +104,9 @@ Não colocar senha ou chave de servidor nos arquivos do navegador. Não trocar u
 
 ## Estado e próximos passos
 
-O painel tem login conectado ao Supabase. O fluxo local de rodadas, encomendas, comprovantes e confirmação manual Pix foi implementado e passou pelo ensaio no Chrome com dados fictícios. Os 21 testes locais e os testes transacionais no banco passaram. Veja [a entrega de encomendas](docs/ENTREGA_ENCOMENDAS.md) e os próximos passos em docs/PLANO_DO_APP.md.
+O painel tem login conectado ao Supabase. O fluxo local de rodadas, encomendas, comprovantes e confirmação manual Pix foi implementado e passou pelo ensaio no Chrome com dados fictícios. Os 23 testes locais e os testes transacionais no banco passaram. Veja [a entrega de encomendas](docs/ENTREGA_ENCOMENDAS.md) e os próximos passos em docs/PLANO_DO_APP.md.
 
-Ainda precisamos concluir o ensaio no celular, a configuração de publicação e as regras de cancelamento/reembolso e retenção de dados antes de receber vendas reais. A configuração de publicação está no repositório; consulte docs/PUBLICAR_VERCEL.md.
+Publicado na conta Vercel do José João (JoseNeto, plano Hobby): [abrir o app](https://suquinho-santos.vercel.app) e [entrar no painel](https://suquinho-santos.vercel.app/pages/painel.html). GitHub conectado para publicação de novos commits em main. Página, catálogo, API e bloqueio de arquivos privados verificados. A rodada permanece em rascunho; ainda falta o ensaio de uso no celular e de login no endereço publicado. Consulte docs/PUBLICAR_VERCEL.md.
 
 - [Plano do app](docs/PLANO_DO_APP.md)
 - [Banco, acesso e verificações](docs/CONFIGURAR_SUPABASE.md)

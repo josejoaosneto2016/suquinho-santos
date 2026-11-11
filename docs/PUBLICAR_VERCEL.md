@@ -13,4 +13,6 @@ Importar `josejoaosneto2016/suquinho-santos`, branch `main`, na conta Vercel do 
 - Validar página principal, /pages/painel.html, /api/health, /api/catalog e login depois do deploy. Conferir que /.env.local e /server/family-api.js retornam 404.
 - A rodada permanece em rascunho até a família decidir abri-la no painel.
 
-A publicação inicial ainda deve ser confirmada no painel da Vercel. Depois de conectar o GitHub, os novos commits em main são publicados automaticamente.
+Publicado em 11/11/2026: https://suquinho-santos.vercel.app, conta jose-neto4, projeto prj_rhxi0G2q2sDWZlC7eadi1HXKOHua. GitHub conectado. Variáveis configuradas como segredos somente em Production; previews precisam de configuração própria para acessar o backend. O login da ferramenta fica separado em .vercel/child-auth, ignorado pelo Git e pelo deploy. Não compartilhar essa pasta.
+
+Verificações no endereço público: home, painel, manifest, imagem e API retornam 200; health indica configured=true; catálogo possui três sabores e nenhuma rodada aberta; overview sem sessão retorna 401; .env.local, server/family-api.js e supabase/config.toml retornam 404. Login autenticado e uso em Android/iPhone ainda devem ser conferidos pela família.
