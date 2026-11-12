@@ -4,6 +4,46 @@ const checkoutButton=document.querySelector('#checkout-submit');
 const paymentBox=document.querySelector('#payment-box');
 const receiptForm=document.querySelector('#receipt-form');
 const sessionKey='suquinhos-checkout-v1';
+const validation=window.suquinhosValidation;
+const customerFields=['customer_name','customer_phone','delivery_notes'];
+const fieldLabels={customer_name:'nome',customer_phone:'telefone',delivery_notes:'observação de entrega'};
+const touched=new Set();
+let submitted=false;
+checkoutForm.noValidate=true;
+function customerValues(){return {name:checkoutForm.elements.customer_name.value,phone:checkoutForm.elements.customer_phone.value,notes:checkoutForm.elements.delivery_notes.value};}
+function showFieldErrors(){
+ const errors=validation.validateCustomer(customerValues());
+ for(const name of customerFields){
+  const field=checkoutForm.elements[name],message=(submitted||touched.has(name))?errors[name]||'':'';
+  field.setAttribute('aria-invalid',String(Boolean(message)));
+  document.querySelector('#'+field.id+'-error').textContent=message;
+ }
+ return errors;
+}
+function updatePhoneHint(){document.querySelector('#customer-phone-hint').textContent=validation.phoneHint(checkoutForm.elements.customer_phone.value);}
+for(const name of customerFields){
+ const field=checkoutForm.elements[name];
+ field.addEventListener('blur',event=>{
+  // O submit mostra todos os erros. Evita mover o botão entre pressionar e soltar o clique.
+  if(event.relatedTarget===checkoutButton)return;
+  touched.add(name);showFieldErrors();
+ });
+ field.addEventListener('input',()=>{
+  if(name==='customer_phone'){
+   const raw=field.value,caret=field.selectionStart;
+   const digitsBefore=raw.slice(0,caret).replace(/\D/g,'').length;
+   field.value=validation.formatPhone(raw);
+   if(caret!==null&&caret<raw.length){
+    let position=0,count=0;
+    while(position<field.value.length&&count<digitsBefore){if(/\d/.test(field.value[position]))count++;position++;}
+    field.setSelectionRange(position,position);
+   }
+   updatePhoneHint();
+  }
+  showFieldErrors();
+  if(submitted)checkoutStatus.textContent=Object.keys(validation.validateCustomer(customerValues())).length?'Confira os campos destacados abaixo.':'Dados corrigidos. Toque em “Reservar pedido e ver Pix” para continuar.';
+ });
+}
 let catalog=null,attempt=null,pending=null,uploadAttempt=null,completed=null,busy=false;
 const brl=value=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(value/100);
 const dateBR=date=>new Intl.DateTimeFormat('pt-BR',{timeZone:'UTC'}).format(new Date(date+'T12:00:00Z'));
@@ -45,14 +85,21 @@ async function loadCatalog(){
 }
 checkoutForm.addEventListener('submit',async event=>{
  event.preventDefault();if(busy)return;
+ submitted=true;
+ const errors=showFieldErrors(),invalidFields=Object.keys(errors);
+ if(invalidFields.length){
+  checkoutStatus.textContent='Confira '+invalidFields.map(name=>fieldLabels[name]).join(' e ')+'. O pedido ainda não foi enviado.';
+  checkoutForm.elements[invalidFields[0]].focus();
+  return;
+ }
  busy=true;updateCheckout();checkoutStatus.textContent='Preparando seu pedido…';
  try{
-  const body={cycle_id:catalog.cycle.id,customer:{name:checkoutForm.elements.customer_name.value,phone:checkoutForm.elements.customer_phone.value},delivery_notes:checkoutForm.elements.delivery_notes.value,items:window.suquinhosCart.items(),expected_total_cents:window.suquinhosCart.total()};
+  const body={cycle_id:catalog.cycle.id,customer:{name:checkoutForm.elements.customer_name.value.trim(),phone:validation.phoneDigits(checkoutForm.elements.customer_phone.value)},delivery_notes:checkoutForm.elements.delivery_notes.value,items:window.suquinhosCart.items(),expected_total_cents:window.suquinhosCart.total()};
   if(!attempt||JSON.stringify(attempt.body)!==JSON.stringify(body))attempt={key:crypto.randomUUID(),body};
   persistAttempt();
   pending=await callApi('/api/orders',attempt.body,{'Idempotency-Key':attempt.key});
   attempt=null;persistAttempt();
-  checkoutForm.reset();checkoutStatus.textContent='Pedido reservado. Faça o Pix e envie o comprovante abaixo. Ainda não está confirmado.';
+  checkoutForm.reset();submitted=false;touched.clear();showFieldErrors();updatePhoneHint();checkoutStatus.textContent='Pedido reservado. Faça o Pix e envie o comprovante abaixo. Ainda não está confirmado.';
   updateCheckout();paymentBox.scrollIntoView({behavior:'smooth',block:'start'});
  }catch(error){
   checkoutStatus.textContent=error.message||'Falha de conexão. Tente novamente; a mesma tentativa será reutilizada.';
@@ -102,4 +149,5 @@ try{
   checkoutForm.elements.delivery_notes.value=attempt.body.delivery_notes;
  }
 }catch{checkoutStatus.textContent='Não foi possível recuperar o andamento desta aba.';}
-updateCheckout();loadCatalog();
+checkoutForm.elements.customer_phone.value=validation.formatPhone(checkoutForm.elements.customer_phone.value);
+updatePhoneHint();updateCheckout();loadCatalog();
