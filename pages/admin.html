@@ -1,3 +1,49 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="manifest" href="../manifest.webmanifest"><link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png"><meta name="theme-color" content="#1f6b3b"><title>Área da família | Suquinhos Santos</title><link rel="stylesheet" href="../css/style.css"></head>
-<body><header class="site-header"><a class="brand" href="../index.html"><img src="../assets/images/logo.png" alt=""><span>Suquinhos Santos</span></a><a href="../index.html">Voltar ao site</a></header><main class="menu-section"><p class="eyebrow">Área da família · rascunho</p><h1 style="font-size:clamp(2rem,5vw,3.5rem)">Painel administrativo</h1><p>Esta página registra o escopo do painel. Login, dados persistentes e operações financeiras serão implementados depois de escolhermos como proteger e armazenar as informações.</p><div class="flavors"><article class="flavor-card"><h3>Pedidos</h3><p>Encomendas, quantidades por sabor, status e resumo para as compras de sábado.</p></article><article class="flavor-card"><h3>Caixa e finanças</h3><p>Entradas, custos, despesas, saldo e relatórios; separar receita recebida de pedidos ainda não pagos.</p></article><article class="flavor-card"><h3>Clientes e relatórios</h3><p>Cadastro, histórico, metas, exportações e cópias de segurança.</p></article></div><h2 style="margin-top:36px">Papéis da família</h2><p>Adulto responsável: administração, acesso e finanças. Filho(a): catálogo, experiência do site e apoio no registro de pedidos. Ajustem os nomes e permissões em conjunto antes de lançar.</p><p><strong>Privacidade:</strong> não colocar dados pessoais reais, credenciais ou informações de clientes nesta demonstração.</p></main></body></html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+  <meta name="theme-color" content="#1f6b3b">
+  <title>Área da família | Suquinhos Santos</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/admin.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><img src="../assets/images/logo.png" alt=""><span>Suquinhos Santos</span></a>
+    <a href="../index.html">Voltar ao site</a>
+  </header>
+  <main class="menu-section">
+    <p class="eyebrow">Área da família · rascunho</p>
+    <h1 class="admin-title">Painel administrativo</h1>
+    <p>Esta página registra o escopo do painel. Login, dados persistentes e operações financeiras serão implementados depois de escolhermos como proteger e armazenar as informações.</p>
+
+    <section class="password-preview" aria-labelledby="password-preview-title">
+      <h2 id="password-preview-title">Acesso da família</h2>
+      <label for="family-password">Senha</label>
+      <div class="password-field">
+        <input id="family-password" name="password" type="password" autocomplete="current-password" placeholder="Digite sua senha">
+        <button class="password-toggle" type="button" aria-label="Mostrar senha" aria-pressed="false" aria-controls="family-password">
+          <svg class="eye-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M2.2 12s3.5-6 9.8-6 9.8 6 9.8 6-3.5 6-9.8 6-9.8-6-9.8-6Z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+            <path class="eye-slash" d="m4 4 16 16"></path>
+          </svg>
+        </button>
+      </div>
+      <p class="password-note">Prévia do campo de acesso. A autenticação ainda não está configurada.</p>
+    </section>
+
+    <div class="flavors">
+      <article class="flavor-card"><h3>Pedidos</h3><p>Encomendas, quantidades por sabor, status e resumo para as compras de sábado.</p></article>
+      <article class="flavor-card"><h3>Caixa e finanças</h3><p>Entradas, custos, despesas, saldo e relatórios; separar receita recebida de pedidos ainda não pagos.</p></article>
+      <article class="flavor-card"><h3>Clientes e relatórios</h3><p>Cadastro, histórico, metas, exportações e cópias de segurança.</p></article>
+    </div>
+    <h2 class="family-roles-title">Papéis da família</h2>
+    <p>Adulto responsável: administração, acesso e finanças. Filho(a): catálogo, experiência do site e apoio no registro de pedidos. Ajustem os nomes e permissões em conjunto antes de lançar.</p>
+    <p><strong>Privacidade:</strong> não colocar dados pessoais reais, credenciais ou informações de clientes nesta demonstração.</p>
+  </main>
+</body>
+</html>
