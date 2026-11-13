@@ -2,9 +2,17 @@ const loginSection = document.querySelector('#login-section');
 const dashboard = document.querySelector('#dashboard');
 const form = document.querySelector('#login-form');
 const loginButton = document.querySelector('#login-button');
+const passwordInput = document.querySelector('#password');
+const passwordToggle = document.querySelector('#password-toggle');
 const connectionStatus = document.querySelector('#connection-status');
 const panelStatus = document.querySelector('#panel-status');
 let selectedCycle = null;
+passwordToggle?.addEventListener('click', () => {
+  const showPassword = passwordInput.type === 'password';
+  passwordInput.type = showPassword ? 'text' : 'password';
+  passwordToggle.setAttribute('aria-pressed', String(showPassword));
+  passwordToggle.setAttribute('aria-label', showPassword ? 'Ocultar senha' : 'Mostrar senha');
+});
 const money = value => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value / 100);
 const labels = { received: 'Recebido', confirmed: 'Confirmado', production: 'Em produção', delivered: 'Entregue', cancelled: 'Cancelado', pending: 'Aguardando Pix', review: 'Conferir comprovante', paid: 'Pago', divergent: 'Pagamento com divergência', refunded: 'Reembolsado' };
 
@@ -143,7 +151,7 @@ window.addEventListener('pageshow', event => { if (event.persisted) { showLogin(
 async function start() {
   try {
     const health = await api('/api/health');
-    if (!health.configured) { connectionStatus.textContent = 'O painel está pronto para conectar. Aguardando a configuração do Supabase pelo responsável.'; return; }
+    if (!health.configured) { connectionStatus.textContent = 'Login indisponível: falta configurar a conexão com o Supabase no arquivo local .env.local. Depois de configurar SUPABASE_URL e SUPABASE_PUBLISHABLE_KEY, reinicie o servidor para habilitar o acesso.'; return; }
     loginButton.disabled = false;
     try { await api('/api/auth/session'); await loadOverview(); }
     catch (error) { showLogin(error.status === 401 ? 'Use sua conta autorizada para entrar.' : error.message); }
