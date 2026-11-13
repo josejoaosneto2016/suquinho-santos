@@ -58,6 +58,8 @@ async function callApi(path,body,headers={}){
  return data;
 }
 function updateCheckout(){
+ const checkoutSection=document.querySelector('#encomendar');
+ checkoutSection.hidden=!(pending||completed||checkoutSection.dataset.open==='true');
  checkoutForm.hidden=Boolean(pending||completed);
  paymentBox.hidden=!pending;
  document.querySelector('#checkout-done').hidden=!completed;

@@ -99,6 +99,8 @@ finalizeButton.addEventListener("click", () => {
   if (!cart.size) return;
   cartDialog.close();
   const checkout = document.querySelector("#encomendar");
+  checkout.dataset.open = "true";
+  checkout.hidden = false;
   checkout.scrollIntoView({ behavior: "smooth", block: "start" });
   document.querySelector("#checkout-title").focus({ preventScroll: true });
 });
