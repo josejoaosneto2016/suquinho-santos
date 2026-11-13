@@ -4,3 +4,5 @@
 
 .login-card .password-field input{padding-right:52px}
 .login-card .password-toggle{margin-top:0}
+
+.panel-home-link{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:var(--green-dark);background:var(--green-soft)}.panel-home-link:hover{background:#d9eadb}.panel-home-link:focus-visible{outline:3px solid var(--orange);outline-offset:3px}.panel-home-link svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
