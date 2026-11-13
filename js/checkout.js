@@ -62,6 +62,7 @@ function updateCheckout(){
  paymentBox.hidden=!pending;
  document.querySelector('#checkout-done').hidden=!completed;
  checkoutButton.disabled=busy||!catalog?.can_order||!window.suquinhosCart?.items().length;
+ document.querySelector('#finalize-order').disabled=busy||Boolean(pending)||!window.suquinhosCart?.items().length;
  for(const button of document.querySelectorAll('.add-button,#cart-items button,#clear-cart'))button.disabled=Boolean(pending||busy);
  if(pending){
   const order=pending.order;

@@ -26,6 +26,12 @@ function saveCart() {
 const countEl = document.querySelector("#cart-count");
 const listEl = document.querySelector("#cart-items");
 const totalEl = document.querySelector("#cart-total");
+const cartDialog = document.querySelector("#cart-dialog");
+const openCartButton = document.querySelector("#open-cart");
+const finalizeButton = document.querySelector("#finalize-order");
+const clearCartButton = document.querySelector("#clear-cart");
+const emptyCartLink = document.querySelector("#empty-cart-link");
+const cartLiveStatus = document.querySelector("#cart-live-status");
 const formatBRL = cents => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(cents / 100);
 let liveProducts = [];
 const productIds = { 'Laranja':'laranja', 'Laranja com acerola':'laranja-acerola', 'Acerola':'acerola' };
@@ -36,6 +42,11 @@ window.addEventListener('catalogready',event=>{liveProducts=event.detail.product
 function renderCart() {
   const count = [...cart.values()].reduce((sum, quantity) => sum + quantity, 0);
   countEl.textContent = count;
+  openCartButton.setAttribute("aria-label", `Abrir carrinho, ${count} ${count === 1 ? "item" : "itens"}`);
+  finalizeButton.disabled = count === 0;
+  finalizeButton.hidden = count === 0;
+  clearCartButton.hidden = count === 0;
+  emptyCartLink.hidden = count > 0;
   listEl.replaceChildren();
   if (!count) { const empty = document.createElement("li"); empty.className = "empty-cart"; empty.textContent = "Ainda não há itens no carrinho."; listEl.append(empty); }
   else for (const [flavor, quantity] of cart) {
@@ -74,7 +85,21 @@ document.querySelectorAll(".add-button").forEach(button => button.addEventListen
     return;
   }
   cart.set(flavor, (cart.get(flavor) || 0) + 1); saveCart(); renderCart();
-  document.querySelector("#pedido").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  const quantity = cart.get(flavor);
+  cartLiveStatus.textContent = `${flavor} adicionado. ${quantity} ${quantity === 1 ? "unidade" : "unidades"} no carrinho.`;
 }));
 document.querySelector("#clear-cart").addEventListener("click", () => { cart.clear(); saveCart(); renderCart(); });
+openCartButton.addEventListener("click", () => cartDialog.showModal());
+document.querySelector("#close-cart").addEventListener("click", () => cartDialog.close());
+emptyCartLink.addEventListener("click", () => cartDialog.close());
+cartDialog.addEventListener("click", event => {
+  if (event.target === cartDialog) cartDialog.close();
+});
+finalizeButton.addEventListener("click", () => {
+  if (!cart.size) return;
+  cartDialog.close();
+  const checkout = document.querySelector("#encomendar");
+  checkout.scrollIntoView({ behavior: "smooth", block: "start" });
+  document.querySelector("#checkout-title").focus({ preventScroll: true });
+});
 renderCart();
