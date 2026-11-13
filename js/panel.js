@@ -67,8 +67,9 @@ function render(data) {
     }
   }
   const orders = document.querySelector('#orders-list'); orders.replaceChildren();
-  if (!data.orders.length) orders.append(text('p', 'Nenhum pedido nesta rodada.'));
-  for (const order of data.orders) {
+  const visibleOrders = data.orders.filter(order => order.status !== 'cancelled');
+  if (!visibleOrders.length) orders.append(text('p', 'Nenhum pedido ativo nesta rodada.'));
+  for (const order of visibleOrders) {
     const card = text('article', '', 'record');
     card.append(text('strong', `${order.reference} · ${order.customer_name}`), text('span', `${labels[order.status] || order.status} · ${labels[order.payment_status] || order.payment_status}`), text('span', money(order.total_cents)));
     card.append(text('span',order.customer_phone||''),text('span',order.delivery_notes||''));
