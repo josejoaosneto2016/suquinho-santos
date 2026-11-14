@@ -15,6 +15,7 @@ passwordToggle?.addEventListener('click', () => {
 });
 const money = value => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value / 100);
 const labels = { received: 'Recebido', confirmed: 'Confirmado', production: 'Em produção', delivered: 'Entregue', cancelled: 'Cancelado', pending: 'Aguardando Pix', review: 'Conferir comprovante', paid: 'Pago', divergent: 'Pagamento com divergência', refunded: 'Reembolsado' };
+const monthlySales = [['Laranja', 40], ['Laranja com Acerola', 0], ['Acerola', 0]];
 
 async function api(path, body) {
   const response = await fetch(path, { method: body ? 'POST' : 'GET', credentials: 'same-origin', cache: 'no-store', ...(body ? { headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {}) });
@@ -66,9 +67,16 @@ function render(data) {
       const card = text('div', '', 'metric'); card.append(text('span', title), text('strong', value)); metrics.append(card);
     }
   }
+  const monthlySalesContainer = document.querySelector('#monthly-sales');
+  monthlySalesContainer.replaceChildren();
+  for (const [name, quantity] of monthlySales) {
+    const card = text('div', '', 'metric');
+    card.append(text('span', name), text('strong', `${quantity} ${quantity === 1 ? 'garrafa' : 'garrafas'}`));
+    monthlySalesContainer.append(card);
+  }
   const orders = document.querySelector('#orders-list'); orders.replaceChildren();
-  const visibleOrders = data.orders.filter(order => order.status !== 'cancelled');
-  if (!visibleOrders.length) orders.append(text('p', 'Nenhum pedido ativo nesta rodada.'));
+  const visibleOrders = data.orders.filter(order => !['cancelled', 'delivered'].includes(order.status));
+  if (!visibleOrders.length) orders.append(text('p', 'Nenhum pedido em andamento nesta rodada.'));
   for (const order of visibleOrders) {
     const card = text('article', '', 'record');
     card.append(text('strong', `${order.reference} · ${order.customer_name}`), text('span', `${labels[order.status] || order.status} · ${labels[order.payment_status] || order.payment_status}`), text('span', money(order.total_cents)));

@@ -30,6 +30,10 @@
       <div class="panel-heading"><h2 id="cycle-title">Próxima entrega</h2><button class="button button-secondary" id="refresh-button" type="button">Atualizar</button></div>
             <section class="panel-card"><h2>Rodadas de encomendas</h2><label for="cycle-select">Consultar rodada</label><select id="cycle-select"></select><div id="cycle-actions"></div><details><summary>Criar outra rodada</summary><form id="cycle-form"><label for="delivery-date">Segunda-feira da entrega</label><input id="delivery-date" name="delivery_date" type="date" required><p>O fechamento será na sexta anterior, às 18h. A rodada é criada como rascunho; você escolhe quando abrir os pedidos.</p><button id="create-cycle" class="button" type="submit">Criar rodada</button></form></details></section>
       <div id="metrics" class="metrics"></div>
+      <section class="panel-card" aria-labelledby="monthly-sales-title">
+        <h2 id="monthly-sales-title">Sucos vendidos em novembro de 2026</h2>
+        <div id="monthly-sales" class="metrics" aria-live="polite"></div>
+      </section>
       <nav class="panel-nav" aria-label="Seções do painel"><a href="#orders-section">Pedidos</a><a href="#production-section">Produção</a><a href="#cash-section">Caixa</a></nav>
       <section class="panel-card" id="orders-section"><h2>Pedidos da rodada</h2><div id="orders-list"></div></section>
       <section class="panel-card" id="production-section"><h2>Para produzir</h2><p>Pedidos pagos e confirmados ou em produção. Entregues e cancelados ficam fora desta lista.</p><ul id="production-list"></ul></section>
