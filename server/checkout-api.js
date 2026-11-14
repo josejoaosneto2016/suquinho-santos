@@ -34,6 +34,7 @@ function canonicalOrder(body){
   return {product_id:item.product_id,quantity:item.quantity};
  }).sort((a,b)=>a.product_id.localeCompare(b.product_id));
  if(new Set(items.map(item=>item.product_id)).size!==items.length)fail('VALIDATION_ERROR');
+ if(items.reduce((sum,item)=>sum+item.quantity,0)>10)fail('VALIDATION_ERROR');
  return {cycle_id:body.cycle_id,customer:{name,phone},delivery_notes:notes.trim(),items,expected_total_cents:body.expected_total_cents};
 }
 function validFile(bytes,mime,size){

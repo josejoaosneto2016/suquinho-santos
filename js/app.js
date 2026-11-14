@@ -1,4 +1,5 @@
 const priceInCents = 1200;
+const maxCartCount = 10;
 const cart = new Map();
 const storageKey = "suquinhos-santos-cart-v1";
 const flavors = new Set([...document.querySelectorAll(".add-button")].map(button => button.dataset.flavor));
@@ -7,8 +8,10 @@ const storageStatus = document.querySelector("#cart-status");
 try {
   const saved = JSON.parse(localStorage.getItem(storageKey) || "[]");
   if (Array.isArray(saved)) for (const entry of saved) {
-    if (Array.isArray(entry) && flavors.has(entry[0]) && Number.isInteger(entry[1]) && entry[1] > 0 && entry[1] <= 99) {
-      cart.set(entry[0], entry[1]);
+    if (Array.isArray(entry) && flavors.has(entry[0]) && Number.isInteger(entry[1]) && entry[1] > 0) {
+      const remaining = maxCartCount - [...cart.values()].reduce((sum, quantity) => sum + quantity, 0);
+      if (remaining <= 0) break;
+      cart.set(entry[0], Math.min(entry[1], remaining));
     }
   }
 } catch {
@@ -47,6 +50,7 @@ function renderCart() {
   finalizeButton.hidden = count === 0;
   clearCartButton.hidden = count === 0;
   emptyCartLink.hidden = count > 0;
+  document.querySelectorAll(".add-button").forEach(button => { button.disabled = count >= maxCartCount; });
   listEl.replaceChildren();
   if (!count) { const empty = document.createElement("li"); empty.className = "empty-cart"; empty.textContent = "Ainda não há itens no carrinho."; listEl.append(empty); }
   else for (const [flavor, quantity] of cart) {
@@ -60,8 +64,9 @@ function renderCart() {
       button.type = "button";
       button.textContent = text;
       button.setAttribute("aria-label", `${action} quantidade de ${flavor}`);
-      button.disabled = change === 1 && quantity >= 99;
+      button.disabled = change === 1 && count >= maxCartCount;
       button.addEventListener("click", () => {
+        if (change === 1 && count >= maxCartCount) return;
         const next = quantity + change;
         if (next === 0) cart.delete(flavor);
         else cart.set(flavor, next);
@@ -80,8 +85,10 @@ function renderCart() {
 }
 document.querySelectorAll(".add-button").forEach(button => button.addEventListener("click", () => {
   const flavor = button.dataset.flavor;
-  if ((cart.get(flavor) || 0) >= 99) {
-    storageStatus.textContent = "O carrinho permite até 99 garrafas por sabor. Para quantidades maiores, combine com a família.";
+  const count = [...cart.values()].reduce((sum, quantity) => sum + quantity, 0);
+  if (count >= maxCartCount) {
+    storageStatus.textContent = "O carrinho permite até 10 sucos no total.";
+    cartLiveStatus.textContent = "Limite de 10 sucos atingido.";
     return;
   }
   cart.set(flavor, (cart.get(flavor) || 0) + 1); saveCart(); renderCart();
