@@ -77,7 +77,7 @@ function render(data) {
     if(order.receipt_late)card.append(text('p','Comprovante enviado após o fechamento. Confira a disponibilidade antes de incluir na produção.','panel-notice'));
     for(const receipt of order.payment_receipts||[]){
       if(receipt.validation_status!=='valid')continue;
-      const view=text('button','Preparar comprovante','button button-secondary');view.type='button';
+      const view=text('button','Visualizar comprovante','button button-secondary');view.type='button';
       view.addEventListener('click',async()=>{
         view.disabled=true;
         try{
