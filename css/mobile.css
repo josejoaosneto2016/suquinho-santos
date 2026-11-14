@@ -584,6 +584,16 @@ footer {
   font-size: .83rem;
 }
 
+.cart-dialog .empty-cart-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  white-space: nowrap;
+}
+
 .cart-dialog .total {
   max-width: none;
   padding: 14px 0 6px;
